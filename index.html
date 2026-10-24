@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>I'm here, Brian!</title>
 <style>
-  :root{--bg:#f1eee6;--card:#fff;--ink:#191b18;--mute:#6b6a63;--line:#e4e1d8;--blue:#0a66c2;--bubble:#f2f0ea;--pencil:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' stroke='rgb(25,27,24)' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpolygon points='18.6,8.4 23.6,13.4 20.8,16.2 15.8,11.2' fill='rgb(240,140,160)'/%3E%3Cpolygon points='15.8,11.2 20.8,16.2 9.4,27.5 4.5,22.6' fill='rgb(250,205,60)'/%3E%3Cpolygon points='2,30 9.4,27.5 4.5,22.6' fill='rgb(240,215,175)'/%3E%3Cpolygon points='2,30 4.2,29.3 2.75,27.8' fill='rgb(25,27,24)'/%3E%3C/svg%3E") 2 30, crosshair;}
+  :root{--bg:#f1eee6;--card:#fff;--ink:#191b18;--mute:#6b6a63;--line:#e4e1d8;--blue:#0a66c2;--bubble:#f2f0ea;--pencil:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' stroke='rgb(25,27,24)' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpolygon points='3,22 17,8 29,20 15,30' fill='rgb(240,140,160)'/%3E%3Cpolygon points='3,22 17,8 22,13 8,27' fill='rgb(70,110,200)'/%3E%3Cpolygon points='8,27 22,13 29,20 15,30' fill='rgb(240,140,160)'/%3E%3C/svg%3E") 6 28, crosshair;}
   *{box-sizing:border-box;margin:0}
   [hidden]{display:none!important}
   html,body{height:100%}
-  body{background:var(--bg);color:var(--ink);font:14px/1.4 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif;overflow:hidden;cursor:var(--pencil)}
+  body{background:var(--bg);color:var(--ink);font:14px/1.4 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif;overflow:hidden}
   .card{position:fixed;left:50%;top:max(20px,4vh);transform:translateX(-50%);width:min(560px,calc(100vw - 32px));background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;box-shadow:0 1px 2px rgba(0,0,0,.05);z-index:1}
   .post{font-size:12px;color:var(--mute);padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:12px}
   .c{display:flex;gap:10px;margin-bottom:10px}
@@ -51,12 +51,12 @@
   .scratch .box{position:relative;width:100%;aspect-ratio:1;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.14)}
   .scratch img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .scratch,.scratch *{-webkit-user-select:none;user-select:none}
-  .scratch canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .7s}
+  .scratch canvas{cursor:var(--pencil);position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .7s}
   .scratch .cap{display:block;text-align:center;margin-top:8px;font:600 13px/1 -apple-system,Helvetica,sans-serif;color:var(--ink);animation:in .4s}
   @media (max-width:900px){.scratch{top:auto;bottom:64px;right:10px;transform:rotate(2deg);width:104px}}
   .stage{position:fixed;left:50%;bottom:0;width:min(92vw,calc(46vh*.75));aspect-ratio:3/4;transform:translate(-50%,105%);transition:transform .8s cubic-bezier(.2,1.5,.4,1);z-index:2}
   .stage.up{transform:translate(-50%,0)}
-  canvas{width:100%;height:100%;display:block;cursor:var(--pencil);touch-action:none}
+  canvas{width:100%;height:100%;display:block;cursor:default;touch-action:none}
   .hint{position:fixed;right:20px;bottom:18px;text-align:right;font:11px/1.5 ui-monospace,Menlo,monospace;text-transform:uppercase;color:var(--mute);z-index:3}
 </style>
 </head>
