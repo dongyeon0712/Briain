@@ -31,6 +31,8 @@
   .dots i{width:6px;height:6px;border-radius:50%;background:var(--mute);animation:b 1s infinite}
   .dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
   @keyframes b{0%,60%,100%{transform:none;opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+  .ghost{background:#fff;border:1px solid var(--line);color:var(--ink);cursor:text}
+  .ph{color:var(--mute)}
   .cursor{display:inline-block;width:1px;height:1em;background:var(--ink);vertical-align:-2px;margin-left:1px;animation:bl 1s steps(1) infinite}
   @keyframes bl{50%{opacity:0}}
   .card{max-height:calc(100vh - 46vh - 24px);overflow-y:auto}
@@ -57,10 +59,10 @@
   <div class="c"><div class="av b">B</div><div class="bub"><b>Brian</b><small>Author</small><p>Where you at, <span class="pill">Daniel</span>? &#128521;</p></div></div>
   <div class="reply">
     <div class="c" hidden><div class="av d">D</div><div class="bub"><b>Daniel</b><small>just now</small><p><span id="replytext"></span><span class="cursor"></span></p><a class="lp" id="lp" hidden href="https://luma.com/claude-448g?tk=lbJ5ce" target="_blank" rel="noopener"><span>Claude Community x PSL: Creative problem solving with AI</span><em>luma.com &middot; RSVP</em></a></div></div>
-    <div id="typing" hidden class="dots" aria-label="Daniel is typing"><i></i><i></i><i></i></div>
+  <div id="typing" hidden class="dots" aria-label="Daniel is typing"><i></i><i></i><i></i></div>
   </div>
-  <div class="acts"><button id="like">&#128077; Like &middot; <span class="n" id="rc">1</span></button><button>Reply</button></div>
-  <div class="more" id="more"></div>
+  <div class="acts" id="acts"><button id="like">&#128077; Like &middot; <span class="n" id="rc">1</span></button><button>Reply</button></div>
+  <div class="more" id="more" hidden></div>
   <form class="add" id="f" hidden autocomplete="off"><div class="av">?</div><input id="nm" value="Brian" maxlength="20" aria-label="Your name"><input id="tx" placeholder="Add a comment&hellip;" maxlength="280" aria-label="Add a comment"><button id="post" disabled>Post</button></form>
 
 </div>
@@ -210,15 +212,24 @@ const POSES = {"front": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAGQC
   // --- the reply ---
   const form0 = null;
   const replyText = "I’m here, Brian! \u{1F44B} Are you going to the Claude design meet-up next Wed? Hope to see you there! \u{1F3A8}";
-  const typing = document.getElementById('typing'), reply = document.getElementById('replytext'), stage = document.querySelector('.stage');
+  const reply = document.getElementById('replytext'), stage = document.querySelector('.stage');
   const rc = document.getElementById('rc'); let likes = 1;
   function bump(){ likes++; rc.textContent = likes; rc.parentElement.classList.remove('pop'); void rc.offsetWidth; rc.parentElement.classList.add('pop'); }
   document.getElementById('like').addEventListener('click', bump);
+  const typing=document.getElementById('typing');
   setTimeout(()=>{ typing.hidden=false; }, 700);
   setTimeout(()=>{
-    typing.hidden=true; reply.closest(".c").hidden=false;
+    typing.hidden=true; const row=reply.closest('.c'); row.classList.add('new'); row.hidden=false;
     const chars=[...replyText]; let i=0;
-    const t=setInterval(()=>{ reply.textContent=chars.slice(0,++i).join(''); if(i>=chars.length){ clearInterval(t); document.getElementById('lp').hidden=false; form.hidden=false; document.querySelector('.cursor').remove(); setTimeout(()=>stage.classList.add('up'),350);} },35);
+    const t=setInterval(()=>{
+      reply.textContent=chars.slice(0,++i).join('');
+      if(i<chars.length) return;
+      clearInterval(t);
+      document.querySelector('.cursor').remove();
+      document.getElementById('lp').hidden=false;
+      form.hidden=false; more.hidden=false;     // comments appear once Daniel has finished typing
+      setTimeout(()=>stage.classList.add('up'),350);
+    },35);
   }, 2100);
 
   Promise.all(Object.entries(POSES).map(load)).then(()=>{
